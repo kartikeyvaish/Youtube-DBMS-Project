@@ -4,8 +4,8 @@ My task was to create a Youtube like system. Basically perform a database modell
 
 Project Explanation
 
-- Database Overview
-- Table Definitions
-- Questions and Answers
-- Queries
-- ER Diagram
+- [Database Overview](./descriptions/DatabaseOverview.md)
+- [Table Definitions](./descriptions/Tables.md)
+- [Questions and Answers](./descriptions/Questions.md)
+- [Queries](./descriptions/Queries.md)
+- [ER Diagram](https://raw.githubusercontent.com/kartikeyvaish/Youtube-DBMS-Project/v1.1/Youtube%20ER%20Diagram.png)
