@@ -1,6 +1,6 @@
 # Questions
 
-#### 1. How can a user subscribe to a channel?
+#### [1. How can a user subscribe to a channel?](../sql_queries/subscriptions/subscribe_to_a_channel.sql)
 
 We need `user_id` of the user who is subscribing and `channel_id` that he/she wants to subscribe.
 
@@ -11,7 +11,7 @@ ON CONFLICT (user_id, channel_id)
 DO NOTHING;
 ```
 
-#### 2. How can a user unsubscribe from a channel?
+#### [2. How can a user unsubscribe from a channel?](../sql_queries/subscriptions/unsubscribe_to_a_channel.sql)
 
 We need `user_id` of the user who is unsubscribing and `channel_id` that he/she wants to unsubscribe.
 
@@ -20,7 +20,7 @@ DELETE FROM subscriptions
 WHERE user_id = 1 AND channel_id = 165;
 ```
 
-#### 3. How can a user like a video?
+#### [3. How can a user like a video?](..//sql_queries/reactions/video%20reactions/like_a_video.sql)
 
 We need `user_id` of the user who is liking and `video_id` that he/she wants to like.
 
@@ -32,7 +32,7 @@ DO UPDATE
 SET reaction_type_id = EXCLUDED.reaction_type_id;
 ```
 
-#### 4. How can a user dislike a video?
+#### [4. How can a user dislike a video?](../sql_queries/reactions/video%20reactions/dislike_a_video.sql)
 
 We need `user_id` of the user who is disliking and `video_id` that he/she wants to dislike.
 
@@ -44,7 +44,7 @@ DO UPDATE
 SET reaction_type_id = EXCLUDED.reaction_type_id;
 ```
 
-#### 5. How can a user comment on a video?
+#### 5. [How can a user comment on a video?](../sql_queries/comments/add_a_comment.sql)
 
 We need `user_id` of the user who is commenting, `video_id` that he/she wants to comment and `content` that he/she wants to comment.
 
@@ -53,7 +53,7 @@ INSERT INTO comments (video_id, user_id, content)
 VALUES (1, 1, 'Some Comment');
 ```
 
-#### 6. How can a user create a new channel?
+#### [6. How can a user create a new channel?](../sql_queries/channels/create_a_channel.sql)
 
 We need `user_id` of the user who is creating a channel and `name` of the channel.
 
@@ -62,7 +62,7 @@ INSERT INTO channels (user_id, name, handle, description)
 VALUES (2, 'Stark Life', 'StarkLife', 'Vlogs');
 ```
 
-#### 7. How to get recently viewed videos of a user?
+#### [7. How to get recently viewed videos of a user?](../sql_queries/recently_viewed/get_recently_viewed_videos_of_a_user.sql)
 
 We need `user_id` of the user whose recently viewed videos we want to get.
 
@@ -89,7 +89,7 @@ JOIN recently_viewed_video_details
 ON channels.id = recently_viewed_video_details.channel_id;
 ```
 
-#### 8. How to get liked videos by a user?
+#### [8. How to get liked videos by a user?](../sql_queries/reactions/video%20reactions/get_liked_videos_by_a_user.sql)
 
 We need `user_id` of the user whose liked videos we want to get. `reaction_type_id` is 1 for like.
 
@@ -112,7 +112,7 @@ JOIN liked_video_details
 ON channels.id = liked_video_details.channel_id;
 ```
 
-#### 9. How to get subscribed channels of a user?
+#### [9. How to get subscribed channels of a user?](../sql_queries/subscriptions/get_subscribed_chanels_list_for_a_user.sql)
 
 We need `user_id` of the user whose subscribed channels we want to get.
 
@@ -136,7 +136,7 @@ ON channels.id  = subscribed_channels.channel_id
 ORDER BY subscribed_channels.created_at DESC;
 ```
 
-#### 10. How will you get subscribers list of a channel?
+#### [10. How will you get subscribers list of a channel?](../sql_queries/subscriptions/get_subscribers_for_a_channel.sql)
 
 ```sql
 WITH subscribed_users AS (
@@ -154,7 +154,7 @@ ON subscribed_users.user_id = users.id
 ORDER BY subscribed_users.created_at DESC;
 ```
 
-#### 11. How will you get list of videos uploaded by a channel?
+#### [11. How will you get list of videos uploaded by a channel?](../sql_queries/insights/get_list_of_videos_on_a_channel.sql)
 
 ```sql
 WITH videos_list AS (
@@ -166,7 +166,7 @@ WITH videos_list AS (
 SELECT * FROM videos_list;
 ```
 
-#### 12. How will you get list of videos uploaded by a user (maybe on multiple channels)?
+#### [12. How will you get list of videos uploaded by a user (maybe on multiple channels)?](../sql_queries/insights/get_list_of_videos_uploaded_by_a_user.sql)
 
 ```sql
 WITH users_channels AS (
@@ -183,7 +183,7 @@ videos_list AS (
 SELECT * FROM videos_list;
 ```
 
-#### 13. How will you get likes, dislikes and comments count of a video?
+#### [13. How will you get likes, dislikes and comments count of a video?](../sql_queries/insights/get_count_of_likes_comments_views_on_a_video.sql)
 
 ```sql
 SELECT
@@ -193,7 +193,7 @@ SELECT
     (SELECT COUNT(*) FROM video_views WHERE video_id = 1 ) AS total_views;
 ```
 
-#### 14. How will you get percentage of views by subscriber or non-subscriber.
+#### [14. How will you get percentage of views by subscriber or non-subscriber.](../sql_queries/insights/get_sub_unsub_percentage_for_a_video.sql)
 
 ```sql
 WITH viewed_users_ids AS (
@@ -219,7 +219,7 @@ SELECT
 FROM counts;
 ```
 
-#### 15. How will you get total watch hours by a user on the platform?
+#### [15. How will you get total watch hours by a user on the platform?](../sql_queries/durations/total_watch_hours_for_a_user.sql)
 
 Suppose, a user has viewed 3 videos till now.
 
@@ -237,7 +237,7 @@ FROM video_views
 WHERE user_id = 2;
 ```
 
-#### 16. How will you get total hours of all his uploaded videos?
+#### [16. How will you get total hours of all his uploaded videos?](../sql_queries/durations/total_duration_of_videos_uploaded_by_a_user.sql)
 
 ```sql
 WITH users_channels AS (
