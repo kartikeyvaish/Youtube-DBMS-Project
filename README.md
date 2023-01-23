@@ -9,4 +9,5 @@ Project Explanation
 - [Questions and Answers](./descriptions/Questions.md)
 - [Queries](./descriptions/Queries.md)
 - [Performance Analysis](./descriptions/PerformanceAnalysis.md)
+- [Use of Transactions](./descriptions/Transactions.md)
 - [ER Diagram](./assets/Youtube_ER_Diagram.png)
