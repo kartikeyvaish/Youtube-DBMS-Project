@@ -9,4 +9,4 @@ Project Explanation
 - [Questions and Answers](./descriptions/Questions.md)
 - [Queries](./descriptions/Queries.md)
 - [Performance Analysis](./descriptions/PerformanceAnalysis.md)
-- [ER Diagram](https://raw.githubusercontent.com/kartikeyvaish/Youtube-DBMS-Project/v1.1/Youtube%20ER%20Diagram.png)
+- [ER Diagram](./assets/Youtube_ER_Diagram.png)
