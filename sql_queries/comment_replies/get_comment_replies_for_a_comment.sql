@@ -1,13 +1,22 @@
 -- Script to get comment replies for a parent comment
 
-WITH comments_list AS (
+WITH comment_reply_list AS (
     SELECT *
     FROM comment_replies
-    WHERE parent_comment_id = 291
+    WHERE parent_comment_id = 4086
     ORDER BY created_at DESC
     LIMIT 10 OFFSET 0
 )
-SELECT comments_list.id as comment_reply_id, name, content, comments_list.updated_at
+SELECT comment_reply_list.id as comment_reply_id, is_edited, name, content,
+       comment_reply_list.updated_at,
+       (
+        SELECT COUNT(*) FROM comment_reply_reactions
+        WHERE comment_reply_id = comment_reply_list.id AND reaction_type_id = 1
+       ) as likes_count,
+       (
+        SELECT COUNT(*) FROM comment_reply_reactions
+        WHERE comment_reply_id = comment_reply_list.id AND reaction_type_id = 2
+       ) as dislikes_count
 FROM users
-JOIN comments_list
-ON comments_list.user_id = users.id;
+JOIN comment_reply_list
+ON comment_reply_list.user_id = users.id;
