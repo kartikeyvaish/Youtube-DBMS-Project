@@ -3,8 +3,8 @@ CREATE TABLE users (
 	name VARCHAR(255) NOT NULL,
 	email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 );
 
 CREATE TABLE channels (
@@ -13,23 +13,20 @@ CREATE TABLE channels (
 	name VARCHAR(255) NOT NULL,
 	handle VARCHAR(255) NOT NULL,
 	description TEXT DEFAULT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_user_id
 		FOREIGN KEY (user_id)
-			REFERENCES users (id),
-
-    CONSTRAINT channels_unique_user_id__name_index UNIQUE (user_id, name),
-    CONSTRAINT channels_unique_handle_index UNIQUE (handle)
+			REFERENCES users (id)
 );
 
 CREATE TABLE subscriptions (
 	id BIGSERIAL NOT NULL PRIMARY KEY,
 	channel_id BIGINT NOT NULL,
 	user_id BIGINT NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_subscribed_channel_id
 		FOREIGN KEY (channel_id)
@@ -37,9 +34,7 @@ CREATE TABLE subscriptions (
 
 	CONSTRAINT fk_subscriber_user_id
 		FOREIGN KEY (user_id)
-			REFERENCES users (id),
-
-    CONSTRAINT subscriptions_unique_channel_id__user_id_index UNIQUE (channel_id, user_id)
+			REFERENCES users (id)
 );
 
 CREATE TABLE videos (
@@ -51,8 +46,8 @@ CREATE TABLE videos (
 	width INTEGER NOT NULL,
 	height INTEGER NOT NULL,
 	duration_in_seconds INTEGER NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_video_channel_id
 		FOREIGN KEY (channel_id)
@@ -64,8 +59,8 @@ CREATE TABLE video_views (
 	user_id BIGINT NOT NULL,
 	video_id BIGINT NOT NULL,
 	watch_time_in_seconds INTEGER NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_video_views_user_id
 		FOREIGN KEY (user_id)
@@ -73,16 +68,14 @@ CREATE TABLE video_views (
 
 	CONSTRAINT fk_video_views_video_id
 		FOREIGN KEY (video_id)
-			REFERENCES videos (id),
-
-    CONSTRAINT video_views_unique_user_id__video_id_index UNIQUE (user_id, video_id)
+			REFERENCES videos (id)
 );
 
 CREATE TABLE reaction_types (
-  id BIGSERIAL NOT NULL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+	updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 );
 
 CREATE TABLE video_reactions (
@@ -90,8 +83,8 @@ CREATE TABLE video_reactions (
 	user_id BIGINT NOT NULL,
 	video_id BIGINT NOT NULL,
 	reaction_type_id BIGINT NOT NULL,
-	created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_video_reactions_user_id
 	    FOREIGN KEY (user_id)
@@ -103,9 +96,7 @@ CREATE TABLE video_reactions (
 
 	CONSTRAINT fk_video_reactions_type_id
 	    FOREIGN KEY (reaction_type_id)
-	        REFERENCES reaction_types (id),
-
-	CONSTRAINT video_reactions_unique_video_id__user_id_index UNIQUE (video_id, user_id)
+	        REFERENCES reaction_types (id)
 );
 
 CREATE TABLE comments (
@@ -114,8 +105,8 @@ CREATE TABLE comments (
     user_id BIGINT NOT NULL,
     content TEXT NOT NULL,
     is_edited BOOLEAN DEFAULT false,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_comments_user_id
 		FOREIGN KEY (user_id)
@@ -131,8 +122,8 @@ CREATE TABLE comment_reactions (
 	user_id BIGINT NOT NULL,
 	comment_id BIGINT NOT NULL,
 	reaction_type_id BIGINT NOT NULL,
-	created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_comment_reactions_user_id
 	    FOREIGN KEY (user_id)
@@ -144,9 +135,7 @@ CREATE TABLE comment_reactions (
 
 	CONSTRAINT fk_comment_reactions_type_id
 	    FOREIGN KEY (reaction_type_id)
-	        REFERENCES reaction_types (id),
-
-	CONSTRAINT comment_reactions_unique_comment_id__user_id_index UNIQUE (comment_id, user_id)
+	        REFERENCES reaction_types (id)
 );
 
 CREATE TABLE comment_replies (
@@ -155,8 +144,8 @@ CREATE TABLE comment_replies (
     parent_comment_id BIGINT NOT NULL,
     content TEXT NOT NULL,
     is_edited BOOLEAN DEFAULT false,
-    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_comment_replies_user_id
 		FOREIGN KEY (user_id)
@@ -172,8 +161,8 @@ CREATE TABLE comment_reply_reactions (
 	user_id BIGINT NOT NULL,
 	comment_reply_id BIGINT NOT NULL,
 	reaction_type_id BIGINT NOT NULL,
-	created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+  	created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC'),
+    updated_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
 
 	CONSTRAINT fk_comment_reply_reactions_user_id
 	    FOREIGN KEY (user_id)
@@ -185,7 +174,5 @@ CREATE TABLE comment_reply_reactions (
 
 	CONSTRAINT fk_comment_reply_reactions_type_id
 	    FOREIGN KEY (reaction_type_id)
-	        REFERENCES reaction_types (id),
-
-	CONSTRAINT comment_reply_reactions_unique_comment_reply_id__user_id_index UNIQUE (comment_reply_id, user_id)
+	        REFERENCES reaction_types (id)
 );
